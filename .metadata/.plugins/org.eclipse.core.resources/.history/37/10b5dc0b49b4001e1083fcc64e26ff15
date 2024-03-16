@@ -1,0 +1,11 @@
+package decoratorpattern;
+
+public class DecoratorPattern {
+
+	public static void main(String[] args) {
+		Pizza dinner = new PistaDecorator(new ChesseDecorator(new VegPizza()));
+		dinner.make();
+		dinner.finish();
+	}
+
+}

@@ -1,0 +1,11 @@
+
+
+public class Factory {
+
+	public static void main(String[] args) {
+		ComputerAbstractFactory serverFactory = new ServerFactory("23gb","1tb","2core");
+		Computer factory = ComputerFactory.getFactory(serverFactory);
+		factory.toString();
+	}
+
+}

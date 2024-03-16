@@ -1,0 +1,26 @@
+package com.inn.pizzabilling.pizza.impl;
+
+import com.inn.pizzabilling.pizza.Pizza;
+import com.inn.pizzabilling.pizza.type.PizzaType;
+
+public class NonVegPizza implements Pizza {
+
+	@Override
+	public int getPrice() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getPizzaPiece() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public PizzaType getPizzaType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

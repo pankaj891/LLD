@@ -1,0 +1,7 @@
+package com.inn;
+
+public class Strategy {
+	public static void main(String[] args) {
+		PaymentStrategy payment = new PaypalStrategy("pankaj","pass@123");
+	}
+}

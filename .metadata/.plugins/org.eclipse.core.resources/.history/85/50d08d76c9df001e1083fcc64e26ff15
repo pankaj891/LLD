@@ -1,0 +1,5 @@
+package com.inn.pizzabillingown.toppings;
+
+public abstract class Topping {
+
+}

@@ -1,0 +1,9 @@
+package com.inn.pizzabillingown.toppings;
+
+import com.inn.pizzabillingown.basepizza.BasePizza;
+
+public abstract class Topping implements BasePizza {
+
+	
+	
+}

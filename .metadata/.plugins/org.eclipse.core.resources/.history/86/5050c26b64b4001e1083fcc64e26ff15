@@ -1,0 +1,8 @@
+package factorydesignpattern;
+
+public abstract class Computer {
+
+	private String Ram;
+	private String hdd;
+	private String cpu;
+}

@@ -1,0 +1,9 @@
+package com.inn.snakeladderlld.enemies;
+
+public class Ladder {
+
+	public Ladder(int start,int end) {
+		super(start,end);
+	}
+
+}

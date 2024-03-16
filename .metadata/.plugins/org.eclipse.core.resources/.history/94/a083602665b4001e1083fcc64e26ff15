@@ -1,0 +1,27 @@
+package factorydesignpattern;
+
+public class PC extends Computer{
+
+	public PC(String ram, String hdd, String cpu) {
+		super(ram, hdd, cpu);
+	}
+
+	@Override
+	String getRAM() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	String getHDD() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	String getCPU() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

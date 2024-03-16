@@ -1,0 +1,20 @@
+package singletonpattern;
+
+public class Computer {
+	
+	static Computer computer;
+	
+	private Computer() {}
+	
+	public static Computer getInstance() {
+		if (computer==null) {
+			synchronized (Computer.class) {
+				if (computer==null) {
+					computer = new Computer();
+				}
+			}
+		}
+		return computer;
+	}
+
+}

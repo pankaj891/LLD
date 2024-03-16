@@ -1,0 +1,17 @@
+package com.inn.snakeladderlld.dice;
+
+import java.util.Random;
+
+public class Dice {
+	
+	private Random rand = null;
+
+	public Dice(int range) {
+		this.rand= new Random(range);
+	}
+	
+	public int getNumber() {
+		return rand.nextInt();
+	}
+
+}

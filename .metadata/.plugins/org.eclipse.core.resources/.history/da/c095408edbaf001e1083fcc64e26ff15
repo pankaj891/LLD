@@ -1,0 +1,6 @@
+package com.inn.strategypattern;
+
+public interface PaymentStrategy {
+	void pay(int payment);
+	Boolean validateCredential();
+}

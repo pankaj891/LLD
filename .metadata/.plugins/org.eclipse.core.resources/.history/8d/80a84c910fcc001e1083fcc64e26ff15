@@ -1,0 +1,5 @@
+package com.inn.notifybutton;
+
+public class Userone implements Observer {
+
+}

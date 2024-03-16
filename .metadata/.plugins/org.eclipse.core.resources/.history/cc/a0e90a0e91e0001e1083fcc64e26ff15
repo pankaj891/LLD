@@ -1,0 +1,7 @@
+package com.inn.pizzabillingown.toppings.impl;
+
+import com.inn.pizzabillingown.toppings.Topping;
+
+public class Mushrooms extends Topping{
+
+}

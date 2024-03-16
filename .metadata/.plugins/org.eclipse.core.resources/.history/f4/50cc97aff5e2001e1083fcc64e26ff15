@@ -1,0 +1,20 @@
+package com.inn.snakeladderlld;
+
+import com.inn.snakeladderlld.board.Board;
+import com.inn.snakeladderlld.dice.Dice;
+import com.inn.snakeladderlld.enemies.Enemies;
+import com.inn.snakeladderlld.enemies.Ladder;
+import com.inn.snakeladderlld.enemies.Snake;
+
+public class Runner {
+
+	public static void main(String[] args) {
+		Dice dice = Dice.getDice(6);
+		Board.getBoard(10, dice);
+		Enemies snakeone = new Snake(54,16);
+		Enemies snaketwo = new Snake(88,66);
+		Enemies ladderone = new Ladder(54,16);
+		Enemies laddertwo = new Ladder(88,66);
+	}
+
+}

@@ -1,0 +1,34 @@
+package com.inn.pizzabillingown.basepizza.impl;
+
+import com.inn.pizzabillingown.basepizza.BasePizza;
+
+public class RegularPizza implements BasePizza {
+
+	private int price;
+	private String pizzaName;
+
+	@Override
+	public int getAmount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public StringBuilder getPizzaName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setAmout(int price) {
+		// TODO Auto-generated method stub
+		this.price=price;
+	}
+
+	@Override
+	public void setPizzaName(String pizzaName) {
+		// TODO Auto-generated method stub
+		this.pizzaName=pizzaName;
+	}
+
+}

@@ -1,0 +1,9 @@
+package com.inn.snakeladderlld.enemies;
+
+public class Snake {
+
+	public Snake() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

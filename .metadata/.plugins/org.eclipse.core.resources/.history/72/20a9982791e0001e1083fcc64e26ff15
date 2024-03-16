@@ -1,0 +1,15 @@
+package com.inn.pizzabillingown.toppings.impl;
+
+import com.inn.pizzabillingown.basepizza.BasePizza;
+import com.inn.pizzabillingown.toppings.Topping;
+
+public class Mushrooms extends Topping{
+
+	private int price;
+	private String pizzaName;
+	
+	public Mushrooms(BasePizza pizza) {
+		super(pizza);
+	}
+
+}

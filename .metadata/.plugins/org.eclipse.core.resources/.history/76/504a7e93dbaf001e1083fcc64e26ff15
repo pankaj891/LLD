@@ -1,0 +1,10 @@
+package com.inn.strategypattern.impl;
+
+import com.inn.strategypattern.PaymentStrategy;
+
+public class Strategy {
+
+	public static void main(String[] args) {
+		PaymentStrategy payment = new PaypalStrategy("pankaj","pass@123");
+	}
+}

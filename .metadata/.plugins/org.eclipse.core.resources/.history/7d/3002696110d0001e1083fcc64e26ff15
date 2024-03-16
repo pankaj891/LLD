@@ -1,0 +1,5 @@
+package com.inn.pizzabilling.pizza.impl;
+
+public class NonVegPizza {
+
+}

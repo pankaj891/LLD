@@ -1,0 +1,5 @@
+package factorydesignpattern;
+
+public class PC extends Computer{
+
+}

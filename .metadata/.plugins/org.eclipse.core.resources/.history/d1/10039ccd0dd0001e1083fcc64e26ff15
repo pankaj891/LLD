@@ -1,0 +1,7 @@
+package com.inn.pizzabilling.pizza.impl;
+
+import com.inn.pizzabilling.pizza.Pizza;
+
+public class NonVegPizza implements Pizza {
+
+}

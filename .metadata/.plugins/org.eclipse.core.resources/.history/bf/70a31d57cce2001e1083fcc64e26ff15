@@ -1,0 +1,13 @@
+package com.inn.snakeladderlld.enemies;
+
+public abstract class Enemies {
+
+	private int start;
+	private int end;
+	
+	protected Enemies(int start,int end) {
+		this.start=start;
+		this.end=end;
+	}
+
+}

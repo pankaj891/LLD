@@ -1,0 +1,36 @@
+package com.inn.snakeladderlld.board;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
+
+import com.inn.snakeladderlld.enemies.Enemies;
+import com.inn.snakeladderlld.enemies.Snake;
+import com.inn.snakeladderlld.player.Player;
+
+public class Board {
+	
+	private Map<Integer,Enemies> snake = new HashMap<>();
+	private Map<Integer,Enemies> ladder = new HashMap<>();
+	private Queue<Player> playerQueue = new LinkedList<>();
+	private final int size;
+	private static Board board = null;
+
+	private Board(int size) {
+		this.size=size;
+	}
+	
+	public static Board getBoard(int size) {
+		if (Board.board==null)
+			Board.board = new  Board(size);
+		return Board.board;
+	}
+	
+	public void setPiece(Enemies piece) {
+		if (piece instanceof Snake.class) {
+			
+		}
+	}
+
+}

@@ -1,0 +1,19 @@
+package decoratorpattern;
+
+public class PistaDecorator extends PizzaDecorator{
+
+	PistaDecorator(Pizza pizza) {
+		super(pizza);
+	}
+
+	@Override
+	public void make() {
+		System.out.println("Adding Chesse...");
+	}
+
+	@Override
+	public void finish() {
+		System.out.println("Adding Chesse Done");
+	}
+
+}

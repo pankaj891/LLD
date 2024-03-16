@@ -1,0 +1,14 @@
+package com.inn.pizzabillingown;
+
+import com.inn.pizzabillingown.basepizza.BasePizza;
+import com.inn.pizzabillingown.basepizza.impl.RegularPizza;
+import com.inn.pizzabillingown.toppings.impl.Cheese;
+import com.inn.pizzabillingown.toppings.impl.Mushrooms;
+
+public class PizzaBilling {
+
+	public static void main(String[] args) {
+		BasePizza pizza = new Cheese(new Mushrooms(new RegularPizza(100,"Regular"),30,"mushroom"),40,"Cheese");
+	}
+
+}

@@ -1,0 +1,13 @@
+package com.inn.snakeladderlld;
+
+import com.inn.snakeladderlld.board.Board;
+import com.inn.snakeladderlld.dice.Dice;
+
+public class Runner {
+
+	public static void main(String[] args) {
+		Dice dice = Dice.getDice(6);
+		Board.getBoard(10, dice);
+	}
+
+}

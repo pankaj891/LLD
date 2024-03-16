@@ -1,0 +1,5 @@
+package com.inn.pizzabillingown.pizzabilling.model;
+
+public class Bill {
+
+}

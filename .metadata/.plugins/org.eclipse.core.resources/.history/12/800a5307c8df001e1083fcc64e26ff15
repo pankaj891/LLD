@@ -1,0 +1,7 @@
+package com.inn.pizzabillingown.basepizza.impl;
+
+import com.inn.pizzabillingown.basepizza.BasePizza;
+
+public class RegularPizza implements BasePizza {
+
+}

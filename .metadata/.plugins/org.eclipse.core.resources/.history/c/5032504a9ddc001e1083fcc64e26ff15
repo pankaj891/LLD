@@ -1,0 +1,10 @@
+package parkinglot;
+
+import java.util.List;
+
+public class Floor {
+	
+	private List<Slot> slotList;
+	private String floorName;
+	private Integer floorNumber;
+}

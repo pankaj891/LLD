@@ -1,0 +1,14 @@
+package proxypattern.com.inn.proxy;
+
+import proxypattern.com.inn.CommandRunner;
+import proxypattern.com.inn.CommandRunnerImpl;
+
+public class ProxyCommand implements CommandRunner {
+
+	CommandRunner proxy = new CommandRunnerImpl();
+	@Override
+	public void run(String cmnd) {
+		
+	}
+
+}

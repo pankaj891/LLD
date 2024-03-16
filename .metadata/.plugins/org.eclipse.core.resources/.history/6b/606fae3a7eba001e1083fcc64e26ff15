@@ -1,0 +1,18 @@
+
+public class ServerFactory implements ComputerAbstractFactory {
+
+	private String Ram;
+	private String hdd;
+	private String cpu;
+	
+	public ServerFactory() {
+		
+	}
+	
+	@Override
+	public Computer createComputer() {
+		
+		return null;
+	}
+
+}

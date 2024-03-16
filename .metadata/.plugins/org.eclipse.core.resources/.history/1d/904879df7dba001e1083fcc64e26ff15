@@ -1,0 +1,10 @@
+
+public class ServerFactory implements ComputerAbstractFactory {
+
+	@Override
+	public Computer createComputer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

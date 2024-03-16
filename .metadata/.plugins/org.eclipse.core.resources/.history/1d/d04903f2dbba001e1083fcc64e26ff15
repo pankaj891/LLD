@@ -1,0 +1,22 @@
+package singletonpattern;
+
+import java.io.Serializable;
+
+public class Computer implements Serializable{
+	
+	static Computer computer;
+	
+	private Computer() {}
+	
+	public static Computer getInstance() {
+		if (computer==null) {
+			synchronized (Computer.class) {
+				if (computer==null) {
+					computer = new Computer();
+				}
+			}
+		}
+		return computer;
+	}
+
+}

@@ -1,0 +1,9 @@
+package com.inn.pizzabilling.pizza;
+
+import com.inn.pizzabilling.pizza.type.PizzaType;
+
+public abstract class Pizza {
+	int getPrice();
+	int getPizzaPiece();
+	PizzaType getPizzaType();
+}

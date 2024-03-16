@@ -1,0 +1,26 @@
+package com.inn.notifybutton;
+
+public class IPhoneObservable implements Observable {
+
+	@Override
+	public void add(Observer observer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void remove(Observer observer) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void setdata(int data) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void notification() {
+		// TODO Auto-generated method stub
+	}
+
+}

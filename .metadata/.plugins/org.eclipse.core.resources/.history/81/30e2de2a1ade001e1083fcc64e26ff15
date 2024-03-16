@@ -1,0 +1,1391 @@
+package org.example;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.Stack;
+
+import org.example.Main.pair;
+
+// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
+// then press Enter. You can now see whitespace characters in your code.
+public class Main {
+	public static void main(String[] args) throws IOException, InterruptedException {
+		System.out.println("Hello and welcome!");
+		int[] arr = { 1, 2, 3, 4, 5, 6 };
+		int[] arralt = { 3, 4, 8, 10 };
+		long[] longArr = { 1, -2, 2, -3 };
+		int[][] M = { { 0, 1, 0 }, { 0, 0, 0 }, { 0, 1, 0 } };
+		int[] dp = new int[arr.length + 1];
+		String[] stringArr = { "3", "30", "34", "5", "9" };
+		Arrays.fill(dp, -1);
+		// dp[0] = arr[0];
+		// dp[1] = arr[0] > arr[1] ? arr[0] : arr[1];
+		// printLargestOptimize(stringArr);
+		// 9534330
+		// long[] A = {4, 1, 2, 1, 1, 2};
+		// long[] B = {3, 6, 3, 3};
+		boolean[] used = new boolean[arr.length];
+		Arrays.fill(used, false);
+		int[] permutation = new int[arr.length];
+		// permutationByVisited(arr,new ArrayList<Integer>(),used);
+		// permutation(arr,0);
+
+		// findSubString("AABBBCBBAC");
+		// int[][] data = { { 1, 5, 8, 9 }, { 2, 3, 7, 10 }, { 4, 6, 11, 15 }, { 9, 14,
+		// 16, 19 }};
+		// mergeKArraysOptimize(data);
+		// findSubarray(arr,arr.length);
+		// closestToZero(arr,arr.length);
+		// rotate(arr,3);
+		// max_sum(arr,arr.length);
+		// Rearrange(arr,arr.length);
+		// canReachGreedy(arr,arr.length);
+		// findMidSum(arr,arralt,arr.length);
+		// maxOnesWithKadanes(arr, arr.length);
+		// overlappedInterval(arr,arralt,arr.length);
+		// printPatternFive();
+		// maxSumWithK(longArr,longArr.length,2);
+		//shuffleInteger(arr, arr.length);
+	}
+	
+	private static void maxProfit(int[] arr,int n) {
+		int sum=0;
+		for (int i=0;i<n-1;i++) {
+			if (arr[i]<arr[i+1])
+				sum+=(arr[i+1]-arr[i]);
+		}
+		System.out.println("ans : "+sum);
+	}
+
+	// 1 4 2 5 3 6
+	private static void shuffleInteger(int[] arr, int n) {
+		int mid = n / 2;
+		System.out.println("mid : " + mid);
+		for (int i = 0, j = mid; i < mid && j < n; i++, j++) {
+			arr[i] = arr[i] | arr[j] << 20;
+		}
+		int j=n-1;
+		for (int i = mid-1; i >= 0; i--) {
+			int x = arr[i] & (16 - 1);
+			int y = arr[i] >> 20;
+		    arr[j]=y;
+		    arr[j-1]=x;
+		    j=j-2;
+		}
+		for (int i=0;i<n;i++) {
+			System.out.print(arr[i]+" , ");
+		}
+	}
+
+	private static void maxSumWithK(long a[], long n, long k) {
+		long sum = 0;
+		int j = 0;
+		while (j < k) {
+			sum += a[j];
+			j++;
+		}
+		long max = sum, prev = sum;
+		System.out.println("sum : " + sum + " , max : " + max + " , prev : " + prev);
+		int i = 0;
+		while (j < n) {
+			sum = sum + a[j] - a[i];
+			prev = Math.max(prev + a[j], sum);
+			max = Math.max(max, prev);
+			j++;
+			i++;
+		}
+		System.out.println("ans : " + max);
+	}
+
+	private static void printPatternOne() {
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++)
+				System.out.print("*");
+			System.out.println();
+		}
+	}
+
+	private static void printPatternTwo() {
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < (i + 1); j++)
+				System.out.print("*");
+			System.out.println();
+		}
+	}
+
+	private static void printPatternThree() {
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < (i + 1); j++)
+				System.out.print(j + 1);
+			System.out.println();
+		}
+	}
+
+	private static void printPatternFour() {
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < (i + 1); j++)
+				System.out.print(i + 1);
+			System.out.println();
+		}
+	}
+
+	private static void printPatternFive() {
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < (5 - i); j++)
+				System.out.print("*");
+			System.out.println();
+		}
+	}
+
+	private static void overlappedInterval(int[] intervalone, int[] intervaltwo, int n) {
+		List<pair> list = new ArrayList<pair>();
+		Stack<pair> ans = new Stack<>();
+		for (int i = 0; i < n; i++)
+			list.add(new pair(intervalone[i], intervaltwo[i]));
+		list.sort(new IntervalSorting());
+		System.out.println("list : " + list);
+
+		for (pair p : list) {
+			if (ans.isEmpty())
+				ans.add(p);
+			else {
+				pair peek = ans.peek();
+				if (p.a < peek.b) {
+					peek.b = p.b;
+					ans.pop();
+					ans.add(peek);
+				} else
+					ans.add(p);
+			}
+		}
+		System.out.println("ans : " + ans);
+	}
+
+	private static void maxOnesWithKadanes(int a[], int n) {
+		int totalOnes = 0;
+		for (int i = 0; i < n; i++) {
+			if (a[i] == 1) {
+				a[i] = -1;
+				totalOnes++;
+			} else
+				a[i] = 1;
+		}
+		System.out.println("totalOnes : " + totalOnes);
+		int sum = 0, max = Integer.MIN_VALUE;
+		for (int i = 0; i < n; i++) {
+			sum += a[i];
+			max = Math.max(sum, max);
+			if (sum < 0)
+				sum = 0;
+		}
+		System.out.println("ans : " + (totalOnes + max));
+	}
+
+	private static void findMidSum(int[] ar1, int[] ar2, int n) {
+		int low = 0, high = n - 1;
+		while (low < high) {
+			int cut1 = (low + high) / 2;
+			int cut2 = (n - 1) - cut1;
+			int ru = ar1[cut1];
+			int rb = ar2[cut2];
+			int lu = ((cut1 - 1) < 0 ? 0 : ar1[cut1 - 1]);
+			int lb = ((cut2 - 1) < 0 ? 0 : ar2[cut2 - 1]);
+			System.out.println("ru : " + ru + " , rb : " + rb + ", lu : " + lu + " , lb : " + lb);
+			if (lu <= rb && lb <= ru) {
+				System.out.println("ans : " + (Math.max(lu, lb) + Math.min(ru, rb)));
+				break;
+			} else if (lu > rb)
+				high = cut1 - 1;
+			else
+				low = cut1 + 1;
+		}
+	}
+
+	private static void canReachGreedy(int[] A, int N) {
+		int max_reach = 0, current_reach = 0, steps = 0;
+		for (int i = 0; i < N; i++) {
+			max_reach = Math.max(max_reach, i + A[i]);
+			if (max_reach >= N - 1) {
+				steps++;
+				break;
+			}
+			if (i == current_reach) {
+				steps++;
+				current_reach = max_reach;
+			}
+		}
+		System.out.print("min jump : " + steps);
+	}
+
+	private static void Rearrange(int a[], int n) {
+		int i = 0, j = 0;
+		while (j < n) {
+			if (a[j] < 0) {
+				swap(a, i, j);
+				i++;
+				j++;
+			} else if (a[j] >= 0) {
+				j++;
+			}
+		}
+		for (int k = 0; k < n; k++)
+			System.out.print(a[k] + " , ");
+	}
+
+	private static void max_sum(int A[], int n) {
+		int arrSum = 0;
+		for (int i = 0; i < n; i++)
+			arrSum += A[i];
+		int s0 = 0;
+		for (int i = 0; i < n; i++)
+			s0 += (A[i] * i);
+		int max = s0;
+		System.out.println("arrSum : " + arrSum);
+		System.out.println("s0 : " + s0);
+		for (int i = 0; i < n; i++) {
+			s0 = s0 + arrSum - n * A[n - i - 1];
+			System.out.println("s0 update : " + s0);
+			max = Math.max(max, s0);
+		}
+		System.out.println("ans : " + max);
+	}
+
+	private static void rotate(int[] arr, int k) {
+		reverse(arr, 0, k - 1);
+		reverse(arr, k, arr.length - 1);
+		reverse(arr, 0, arr.length - 1);
+		for (int m : arr)
+			System.out.print(m + " , ");
+		System.out.println();
+	}
+
+	private static void reverse(int[] arr, int start, int end) {
+		while (start < end) {
+			int temp = arr[start];
+			arr[start] = arr[end];
+			arr[end] = temp;
+			start++;
+			end--;
+		}
+	}
+
+	// 3, 9, 12, 16, 20
+	private static void getMinDiff(int[] arr, int n, int k) {
+
+		int ans = Integer.MAX_VALUE;
+		for (int i = 1; i < arr.length; i++) {
+			int max = Math.max(arr[i] + k, arr[n - 1] - k);
+			int min = Math.min(arr[0] + k, arr[i] - k);
+			ans = Math.min(ans, max - min);
+		}
+		System.out.println("==> " + ans);
+	}
+
+	private static void getMinDiffBruteforce(int[] arr, int n, int k, int index) {
+		if (index >= n) {
+			for (int data : arr)
+				System.out.print(data + " , ");
+			System.out.println();
+			return;
+		}
+		arr[index] += k;
+		getMinDiffBruteforce(arr, n, k, index + 1);
+		if ((arr[index] - (k + k)) >= 0)
+			arr[index] -= (k + k);
+		getMinDiffBruteforce(arr, n, k, index + 1);
+		arr[index] += k;
+	}
+
+	private static void searchAnagramByPermutation(String pat, String txt) {
+		boolean[] used = new boolean[txt.length()];
+		Arrays.fill(used, false);
+		List<String> output = new ArrayList<String>();
+		generatePermutation(txt.toCharArray(), output, used, new ArrayList<Character>());
+		System.out.println("ans : " + output);
+	}
+
+	private static void generatePermutation(char[] data, List<String> output, boolean[] used,
+			List<Character> localdata) {
+		if (localdata.size() >= data.length) {
+			StringBuilder charString = new StringBuilder();
+			for (char c : localdata)
+				charString.append(c);
+			output.add(charString.toString());
+			return;
+		}
+		for (int i = 0; i < data.length; i++) {
+			if (!used[i]) {
+				used[i] = true;
+				localdata.add(data[i]);
+				generatePermutation(data, output, used, localdata);
+				used[i] = false;
+				localdata.remove(localdata.size() - 1);
+			}
+		}
+
+	}
+
+	private static void closestToZero(int arr[], int n) {
+		int posSum = Integer.MAX_VALUE;
+		int i = 0, j = n - 1;
+		Arrays.sort(arr);
+		while (i < j) {
+			int sum = arr[i] + arr[j];
+			if (Math.abs(sum) < Math.abs(posSum))
+				posSum = sum;
+			if (sum < 0)
+				i++;
+			else
+				j--;
+		}
+		System.out.println("posSum : " + posSum);
+	}
+
+	private static void findSubarray(int a[], int n) {
+		int max = Integer.MIN_VALUE;
+		List ans = new ArrayList<List>();
+		int sum = 0;
+		List intermediateResult = new ArrayList<Integer>();
+		int prevSize = 0;
+		for (int i = 0; i < n; i++) {
+			int prevSum = sum;
+			sum += a[i];
+			intermediateResult.add(a[i]);
+			if (sum <= prevSum || sum < 0) {
+				sum = 0;
+				intermediateResult.remove(intermediateResult.size() - 1);
+				ans.add(intermediateResult);
+				intermediateResult = new ArrayList<Integer>();
+			}
+		}
+		System.out.println("ans : " + ans);
+	}
+
+	static class HeapNode implements Comparable<HeapNode> {
+
+		int data = 0;
+		int i = -1;
+		int j = -1;
+
+		public HeapNode(int data, int i, int j) {
+			super();
+			this.data = data;
+			this.i = i;
+			this.j = j;
+		}
+
+		@Override
+		public int compareTo(HeapNode o) {
+			if (this.data <= o.data)
+				return -1;
+			else
+				return 1;
+		}
+
+		@Override
+		public String toString() {
+			return "HeapNode [data=" + this.data + ", i=" + this.i + ", j=" + this.j + "]";
+		}
+
+	}
+
+	// nlogk
+	private static void mergeKArraysOptimize(int[][] arr) {
+		List<Integer> ans = new ArrayList<Integer>();
+		Queue<HeapNode> pQueue = new PriorityQueue<HeapNode>();
+		for (int i = 0; i < arr.length; i++) {
+			pQueue.add(new HeapNode(arr[i][0], i, 0));
+		}
+
+		while (!pQueue.isEmpty()) {
+			HeapNode poll = (HeapNode) pQueue.poll();
+			ans.add(poll.data);
+			if ((poll.j + 1) < arr[poll.i].length) {
+				pQueue.add(new HeapNode(arr[poll.i][poll.j + 1], poll.i, poll.j + 1));
+			}
+		}
+		System.out.print("ans : " + ans);
+	}
+
+	private static void mergeKArrays(int[][] arr, int K) {
+		int[] ans = new int[K * K];
+		int m = 0;
+		for (int i = 0; i < K; i++) {
+			for (int j = 0; j < K; j++) {
+				ans[m] = arr[i][j];
+				m++;
+			}
+		}
+		Arrays.sort(ans);
+		for (int i = 0; i < ans.length; i++)
+			System.out.print(ans[i] + " , ");
+	}
+
+	private static void findSubString(String str) {
+		int n = str.length();
+
+		if (n == 0) {
+			System.out.println("=> " + str);
+
+			return;
+		}
+
+		// Create a set to keep track of distinct characters
+		Set<Character> distinctChars = new HashSet<>();
+
+		// Create a map to store the count of characters in the current window
+		Map<Character, Integer> charCount = new HashMap<>();
+
+		// Initialize pointers for the sliding window
+		int left = 0;
+		int right = 0;
+		int minLength = n;
+
+		for (int i = 0; i < n; i++)
+			distinctChars.add(str.charAt(i));
+
+		while (right < n) {
+			charCount.put(str.charAt(right), charCount.getOrDefault(str.charAt(right), 0) + 1);
+
+			while (distinctChars.size() == charCount.size()) {
+
+				if (right - left + 1 < n) {
+					minLength = Math.min(right - left + 1, minLength);
+				}
+				Integer integer = charCount.get(str.charAt(left));
+				System.out.println("left  : " + left);
+				if (integer == 0 || integer == -1) {
+					charCount.remove(str.charAt(left));
+				} else {
+					charCount.put(str.charAt(left), charCount.getOrDefault(str.charAt(left), 0) - 1);
+				}
+				left++;
+			}
+			right++;
+		}
+		System.out.println("ans : " + minLength);
+	}
+
+	private static void permutationByVisited(int[] arr, List<Integer> ans, boolean[] visited) {
+		if (ans.size() >= arr.length) {
+			System.out.println("==> " + ans);
+			return;
+		}
+		for (int i = 0; i < arr.length; i++) {
+			if (!visited[i]) {
+				visited[i] = true;
+				ans.add(arr[i]);
+				permutationByVisited(arr, ans, visited);
+				ans.remove(ans.size() - 1);
+				visited[i] = false;
+			}
+		}
+	}
+
+	private static void permutation(int[] arr, int pos) {
+		if (pos >= arr.length) {
+			for (int i = 0; i < arr.length; i++)
+				System.out.print(arr[i] + " , ");
+			System.out.println();
+			return;
+		}
+		int index = pos;
+		for (; index < arr.length; index++) {
+			swap(arr, pos, index);
+			permutation(arr, pos + 1);
+			swap(arr, pos, index);
+		}
+	}
+
+	private static void solve(int[] arr, boolean[] used, int[] permutation, int index) {
+		int n = arr.length;
+		if (index == n) {
+			for (int i = 0; i < n; i++)
+				System.out.print(permutation[i] + " , ");
+			System.out.println();
+			return;
+		}
+		for (int i = 0; i < n; i++) {
+			if (!used[i]) {
+				used[i] = true;
+				permutation[index] = arr[i];
+				solve(arr, used, permutation, index + 1);
+				used[i] = false;
+			}
+		}
+	}
+
+	private static void k_String(String[] data, int k, int pos, List<String> output) {
+		if (pos >= k) {
+			System.out.println("=> : " + output.toString());
+			return;
+		}
+		for (int i = 0; i < k; i++) {
+			output.add(data[pos]);
+			k_String(data, k, pos, output);
+		}
+	}
+
+	private static void binary(int n, List<String> output) {
+		if (n < 0) {
+			System.out.println("=> : " + output.toString());
+			return;
+		}
+		output.add("0");
+		binary(n - 1, output);
+		output.remove(output.size() - 1);
+		output.add("1");
+		binary(n - 1, output);
+		output.remove(output.size() - 1);
+	}
+
+	private static void findSwapValues(long A[], int n, long B[], int m) {
+		Arrays.sort(A);
+		Arrays.sort(B);
+		int sum1 = 0;
+		for (int i = 0; i < n; i++)
+			sum1 += A[i];
+		int sum2 = 0;
+		for (int i = 0; i < m; i++)
+			sum2 += B[i];
+		int target = Math.abs((sum1 - sum2)) / 2;
+		int i = 0, j = 0;
+		int count = 0;
+		System.out.println("target : " + target);
+		while (i < n && j < m) {
+			long diff = Math.abs(A[i] - B[j]);
+			System.out.println("diff : " + diff);
+			if (diff == target) {
+				count++;
+				i++;
+				j++;
+			} else if (diff < target)
+				i++;
+			else
+				j++;
+		}
+		System.out.println("ans : " + count);
+	}
+
+	private static void findNumberOfTriangles(int arr[], int n) {
+		Arrays.sort(arr);
+		int count = 0;
+		for (int i = n - 1; i > 1; i--) {
+			int c = arr[i];
+			int b = arr[i - 1];
+			int initial = 0;
+			while (arr[initial] + b <= c) {
+				initial++;
+			}
+			count += (i - initial) + 1;
+		}
+		System.out.println("ans : " + count);
+	}
+
+	private static void countSubArrayProductLessThanK(long a[], int n, long k) {
+		int start = 0, end = 0, count = 0;
+		long prod = 1;
+		while (end < n) {
+			prod *= a[end];
+			while (prod > k) {
+				prod /= a[start];
+				start++;
+			}
+			count += (end - start) + 1;
+			end++;
+		}
+		System.out.println("count : " + count);
+	}
+
+	private static int cutRod(int price[], int n, int pos) {
+		System.out.println("n : " + n + " , pos : " + pos);
+		if (pos < 0 || n <= 0) {
+			return 0;
+		}
+		// not take
+		int notTake = 0 + cutRod(price, n, pos - 1);
+		// take
+		int take = 0;
+		int rodLength = pos + 1;
+		if (rodLength <= n) {
+			take = price[pos] + cutRod(price, n - rodLength, pos);
+		}
+		return take > notTake ? take : notTake;
+	}
+
+	private static int findMaxSum(int arr[], int n, int[] dp) {
+		if (dp[n] != -1)
+			return dp[n];
+		int sum2 = arr[n] + findMaxSum(arr, n - 2, dp);
+		int sum1 = 0 + findMaxSum(arr, n - 1, dp);
+		return dp[n] = sum1 > sum2 ? sum1 : sum2;
+	}
+
+	private static int countStrings(int n, int pos, boolean previos, ArrayList<String> output) {
+		if (pos == n) {
+			System.out.println("==> " + output);
+			return 1;
+		}
+		int count = 0;
+		output.add("0");
+		count = count + countStrings(n, pos + 1, false, output);
+		if (!previos) {
+			output.remove(output.size() - 1);
+			output.add("1");
+			count = count + countStrings(n, pos + 1, true, output);
+		}
+		output.remove(output.size() - 1);
+		return count;
+	}
+
+	private static void stockBuyAndSell(int[] prices, int n) {
+		int i = 0, j = 1;
+		int sum = 0;
+		while (j < n) {
+			if (prices[i] < prices[j]) {
+				sum += (prices[j] - prices[i]);
+			}
+			j++;
+			i++;
+		}
+		System.out.println("==> " + sum);
+	}
+
+	private static void printLargestOptimize(String[] arr) {
+		Arrays.sort(arr, new StringComparator());
+		StringBuilder sb = new StringBuilder();
+		for (String str : arr) {
+			sb.append(str);
+		}
+		System.out.println("==> " + sb.toString());
+	}
+
+	private static int printLargest(String[] arr, int idx) {
+		// System.out.println("length ==> "+arr.length+" , idx : "+idx);
+		if (idx >= arr.length) {
+			StringBuilder sb = new StringBuilder();
+			for (String str : arr)
+				sb.append(str);
+			// System.out.println("==> "+sb.toString());
+			return Integer.parseInt(sb.toString());
+		}
+		int index = idx;
+		Integer max = Integer.MIN_VALUE;
+		for (; index < arr.length; index++) {
+			swapString(arr, idx, index);
+			int localMax = printLargest(arr, idx + 1);
+			max = Math.max(localMax, max);
+			swapString(arr, idx, index);
+		}
+		return max;
+	}
+
+	private static void nextPermutationOptimize(int N, int arr[]) {
+
+		if (N == 2) {
+			swap(arr, 0, 1);
+			Arrays.asList(arr);
+		}
+		int i = N - 2, j = N - 1;
+		while (i >= 0 && i < j) {
+			if (arr[i] < arr[j])
+				break;
+			j--;
+			i--;
+		}
+		if (i < 0) {
+			reverseArray(arr, 0, N - 1);
+			Arrays.asList(arr);
+		}
+		swap(arr, i, N - 1);
+		reverseArray(arr, i + 1, N - 1);
+		Arrays.asList(arr);
+	}
+
+	private static void reverseArray(int[] arr, int start, int end) {
+		int i = start, j = end;
+		while (i < j) {
+			swap(arr, i, j);
+			i++;
+			j--;
+		}
+	}
+
+	private static void nextPermutation(int N, int arr[], int indx, List<String> output) {
+		if (indx >= N) {
+			String data = "";
+			for (int i = 0; i <= N; i++)
+				data = data + arr[i];
+			output.add(data);
+			return;
+		}
+		int k = indx;
+		for (; k <= N; k++) {
+			swap(arr, indx, k);
+			nextPermutation(N, arr, indx + 1, output);
+			swap(arr, k, indx);
+		}
+	}
+
+	private static void printFirstNegativeInteger(long A[], int N, int K) {
+		Queue<Long> queue = new LinkedList<>();
+		int j = 0;
+		List<Long> output = new ArrayList<>();
+		for (int i = 0; i < N; i++) {
+			// System.out.println("==> i : "+i+" , j : "+j);
+			if (A[i] < 0)
+				queue.offer(A[i]);
+			// System.out.println("j-i : "+(j-i));
+			if ((i - j) == K) {
+				// System.out.println("==> i : "+i+" , j : "+j);
+				if (queue.isEmpty())
+					output.add(0L);
+				else {
+					output.add(queue.peek());
+					if (A[j] == queue.peek())
+						queue.poll();
+				}
+				j++;
+			}
+		}
+		System.out.println("ans : " + output);
+	}
+
+	private static int minSwaps(int nums[]) {
+		List<Main.pair> sortedList = new ArrayList<>();
+		for (int i = 0; i < nums.length; i++)
+			sortedList.add(new Main.pair(nums[i], i));
+		Collections.sort(sortedList, new customcomparator());
+		System.out.println("==> " + sortedList.toString());
+		int i = 0;
+		int ans = 0;
+		for (Main.pair ele : sortedList) {
+			if (i != ele.b)
+				ans++;
+			i++;
+		}
+		return ans / 2;
+	}
+
+	private static void calculateSpan(int price[], int n) {
+		Stack<Main.pair> stack = new Stack<>();
+		int[] output = new int[price.length];
+		output[0] = 1;
+		Main.pair firstPair = new Main.pair(price[0], 0);
+		stack.push(firstPair);
+		for (int i = 1; i < price.length; i++) {
+			while (!stack.isEmpty() && stack.peek().a < price[i]) {
+				stack.pop();
+			}
+			output[i] = i - stack.peek().b;
+			stack.push(new Main.pair(price[i], i));
+		}
+		for (int i = 0; i < output.length; i++)
+			System.out.print(output[i] + " , ");
+	}
+
+	private static void kthElement(int[] arr1, int[] arr2, int n, int m, int k) {
+		int low = 0;
+		int high = m - 1;
+		while (low <= high) {
+			int mid = (low + high) / 2;
+			int upperFirst = k - mid;
+			int lowerFirst = mid;
+			int upperSecond = (k - mid) + 1;
+			int lowerSecond = mid + 1;
+		}
+	}
+
+	private static int maxIndexDiff(int arr[], int n) {
+		int[] rightMax = new int[n];
+		rightMax[n - 1] = arr[n - 1];
+		for (int i = n - 2; i >= 0; i--) {
+			rightMax[i] = Math.max(rightMax[i + 1], arr[i]);
+		}
+		int MAX = Integer.MIN_VALUE;
+		for (int i = 0; i < arr.length; i++) {
+			int j = searchMax(rightMax, 0, rightMax.length, arr[i]);
+			MAX = Math.max(MAX, j - i);
+		}
+		return MAX;
+	}
+
+	private static int searchMax(int[] arr, int low, int high, int item) {
+		int l = low;
+		int h = high - 1;
+		int ans = -1;
+		while (l <= h) {
+			int mid = (l + h) / 2;
+			if (arr[mid] >= item) {
+				ans = mid;
+				l = mid + 1;
+			} else {
+				h = mid - 1;
+			}
+		}
+		return ans;
+	}
+
+	private static void maxLen(int arr[], int n) {
+		Map<Integer, Integer> hash = new HashMap<>();
+		int sum = 0;
+		int ans = -1;
+		for (int i = 0; i < n; i++) {
+			sum += arr[i];
+			if (hash.containsKey(sum)) {
+				// System.out.println("i : "+i);
+				ans = i - hash.get(sum);
+			} else {
+				hash.put(sum, i + 1);
+			}
+		}
+		System.out.println("ans : " + (ans + 1));
+	}
+
+	private static void lenOfLongSubarr(int A[], int N, int K) {
+		Map<Integer, Integer> hash = new HashMap<>();
+		int sum = 0;
+		int i = 0, j = 0;
+		int len = -1;
+		while (i <= j && j < N) {
+			sum += A[j];
+			while (sum > K) {
+				sum -= A[i];
+				i++;
+			}
+			if (sum == K) {
+				len = j - i;
+			}
+			j++;
+		}
+		System.out.println("ans : " + (len + 1));
+	}
+
+	private static int FindMaxSum(int arr[], int n, int[] dp) {
+		if (n < 0)
+			return 0;
+		if (n == 0)
+			return arr[0];
+		if (dp[n] != -1)
+			return dp[n];
+		int second = arr[n] + FindMaxSum(arr, n - 2, dp);
+		int first = 0 + FindMaxSum(arr, n - 1, dp);
+		return dp[n] = Math.max(first, second);
+	}
+
+	private static void celebrity(int M[][], int n) {
+		Stack<Integer> bucket = new Stack<>();
+		for (int i = 0; i < n; i++)
+			bucket.push(i);
+		while (bucket.size() > 1) {
+			int top_one = bucket.pop();
+			int top_two = bucket.pop();
+			if (M[top_one][top_two] == 1) {
+				bucket.push(top_two);
+			} else {
+				bucket.push(top_one);
+			}
+		}
+		int possible = bucket.pop();
+		Boolean is_winner_exist = true;
+		for (int i = 0; i < n; i++) {
+			if (M[possible][i] == 1) {
+				is_winner_exist = false;
+				break;
+			}
+		}
+		if (is_winner_exist)
+			System.out.println("ans : " + possible);
+		else
+			System.out.println("ans : -1");
+	}
+
+	private static void rearrange(int[] arr, int n) {
+		int j = 0, k = n - 1, key = arr[n - 1] + 1;
+		for (int i = 0; i < n; i++) {
+			if (i % 2 == 0) {
+				arr[i] = (arr[k] % key) * key + arr[i];
+				k--;
+			} else {
+				arr[i] = (arr[j] % key) * key + arr[i];
+				j++;
+			}
+		}
+		for (int m : arr)
+			System.out.println((m / key) + ", ");
+	}
+
+	private static void findFirst(int arr[], int n, int x) {
+		int low = 0;
+		int high = n;
+		int ans = -1;
+		while (low <= high) {
+			int mid = (low + high) / 2;
+			if (x < arr[mid])
+				high = mid - 1;
+			else if (x > arr[mid])
+				low = mid + 1;
+			else {
+				ans = mid;
+				high = mid - 1;
+			}
+		}
+		System.out.println("ans : " + ans);
+	}
+
+	private static void findLast(int arr[], int n, int x) {
+		int low = 0;
+		int high = n;
+		int ans = -1;
+		while (low <= high) {
+			int mid = (low + high) / 2;
+			if (x < arr[mid])
+				high = mid - 1;
+			else if (x > arr[mid])
+				low = mid + 1;
+			else {
+				ans = mid;
+				low = mid + 1;
+				;
+			}
+		}
+		System.out.println("ans : " + ans);
+	}
+
+	private static void stockBuySell(int arr[], int n) {
+		int max_of_all = Integer.MIN_VALUE;
+		int sum = 0;
+		for (int i = 0; i < n - 1; i++) {
+			if (arr[i] < arr[i + 1]) {
+				sum += (arr[i + 1] - arr[i]);
+			} else {
+				sum = 0;
+			}
+			max_of_all = Math.max(max_of_all, sum);
+		}
+		System.out.println("ans : " + max_of_all);
+	}
+
+	private static void max_of_subarrays(int arr[], int n, int k) {
+		Deque<Integer> deque = new ArrayDeque<>();
+		for (int i = 0, j = 0; i < (n - k); j++) {
+			while (!deque.isEmpty() && deque.peekLast() < arr[j]) {
+				deque.pollLast();
+			}
+			deque.offerLast(arr[j]);
+			if ((j - i) == k - 1) {
+				System.out.println("ans : " + deque.peekFirst());
+				if (deque.peekFirst() == arr[i])
+					deque.pollFirst();
+				i++;
+			}
+		}
+	}
+
+	private static void findTwoElement(int arr[], int n) {
+		int xor = 0;
+		for (int i = 0; i < n; i++) {
+			xor = xor ^ arr[i];
+		}
+		for (int i = 1; i <= n; i++) {
+			xor = xor ^ i;
+		}
+		System.out.println("xor : " + xor);
+		int diff = 1;
+		for (int i = 0; i < 32; i++) {
+			if ((diff & xor) != 0) {
+				break;
+			}
+			diff = diff << 1;
+		}
+		System.out.println("diff : " + diff);
+	}
+
+	private static void peakElement(int[] arr, int n) {
+		int low = 0;
+		int high = n - 1;
+		int ans = -1;
+		while (low <= high) {
+			int mid = (low + high) / 2;
+			if (mid == 0 && arr[mid] > arr[mid + 1]) {
+				ans = mid;
+				break;
+			} else if (mid == n - 1 && arr[mid] > arr[mid - 1]) {
+				ans = mid;
+				break;
+			} else if (arr[mid - 1] < arr[mid] && arr[mid] > arr[mid + 1]) {
+				ans = mid;
+				break;
+			} else if (mid != n - 1 && arr[mid + 1] > arr[mid]) {
+				low = mid + 1;
+			} else {
+				high = mid - 1;
+			}
+		}
+		System.out.println("ans : " + ans);
+	}
+
+	private static void findPlatform(int arr[], int dep[], int n) {
+		int count = 0;
+		int max = Integer.MIN_VALUE;
+		for (int i = 0; i < arr.length; i++) {
+			count = 1;
+			for (int j = i + 1; j < dep.length; j++) {
+				if (arr[i] >= arr[j] && dep[j] >= arr[i])
+					count++;
+			}
+			max = Math.max(max, count);
+		}
+		System.out.println("ans : " + count);
+	}
+
+	private static void trappingWater(int[] arr, int n) {
+		int[] leftmin = new int[n];
+		int[] rightmax = new int[n];
+		int total = 0;
+		int i = 1;
+		leftmin[0] = arr[0];
+		while (i < n) {
+			leftmin[i] = Math.max(leftmin[i - 1], arr[i]);
+			i++;
+		}
+		i = n - 2;
+		rightmax[n - 1] = arr[n - 1];
+		while (i >= 0) {
+			rightmax[i] = Math.max(rightmax[i + 1], arr[i]);
+			i--;
+		}
+		for (int k : leftmin)
+			System.out.print(k + ",");
+		System.out.println();
+		for (int k : rightmax)
+			System.out.print(k + ",");
+		i = 0;
+		for (int element : arr) {
+			System.out.println(
+					"total : " + total + " , min : " + Math.min(leftmin[i], rightmax[i]) + " , element : " + element);
+			total += (Math.min(leftmin[i], rightmax[i]) - element);
+		}
+		System.out.println();
+		System.out.println("ans : " + total);
+	}
+
+	private static int inversionCount(int[] arr, int low, int high) {
+		int count = 0;
+		if (low < high) {
+			int mid = (high - low) / 2;
+			count += inversionCount(arr, low, mid);
+			count += inversionCount(arr, mid + 1, high);
+		}
+		return count;
+	}
+
+	@SuppressWarnings("unused")
+	private static int merge(int[] arr, int low, int mid, int high) {
+		int start = low;
+		int mid_end = mid + 1;
+		int count = 0;
+		// arrange element and find inversion
+		while (start <= mid && mid_end < high) {
+			if (arr[start] <= arr[mid_end]) {
+				start++;
+			} else {
+				swap(arr, start, mid_end);
+				count += (mid - start) + 1;
+				mid_end++;
+			}
+		}
+
+		// transfer remaining element
+		while (start) {
+		}
+
+		return count;
+	}
+
+	private static int minimizeHeight(int[] arr, int n, int k) {
+		Arrays.sort(arr);
+		int max_ = arr[n - 1];
+		int min_ = arr[0];
+		int res = max_ - min_;
+		for (int i = 1; i < n; i++) {
+			if (arr[i] - k < 0)
+				continue;
+			max_ = Math.max(arr[i - 1] + k, arr[n - 1] - k);
+			min_ = Math.min(arr[i] - k, arr[0] + k);
+			res = Math.min(res, max_ - min_);
+		}
+		return res;
+	}
+
+	private static int minimizeHeightBruteForce(int[] arr, int n, int start, int k) {
+		// base case
+		if (start > n) {
+			int MIN = Integer.MAX_VALUE;
+			int MAX = Integer.MIN_VALUE;
+			for (int val : arr) {
+				MIN = Math.min(MIN, val);
+				MAX = Math.max(MAX, val);
+			}
+			return MAX - MIN;
+		}
+		arr[start] += k;
+		int firstMin = minimizeHeightBruteForce(arr, n, start + 1, k);
+		arr[start] -= k;
+		int secondMin = 0;
+		if ((arr[start] - k) < 0)
+			secondMin = minimizeHeightBruteForce(arr, n, start + 1, k);
+		else {
+			arr[start] -= k;
+			secondMin = minimizeHeightBruteForce(arr, n, start + 1, k);
+			arr[start] += k;
+		}
+		// System.out.println("first ==> "+firstMin);
+		// System.out.println("second ==> "+secondMin);
+		return Math.min(firstMin, secondMin);
+	}
+
+	static int kthSmallest(int[] arr, int l, int r, int k) {
+		int point = -1;
+		if (l < r) {
+			point = partition(arr, l, r);
+			if (point == k - 1)
+				return arr[point];
+			else if (k - 1 < point)
+				return kthSmallest(arr, l, point - 1, k);
+			else
+				return kthSmallest(arr, point + 1, r, k);
+		}
+		return point;
+	}
+
+	private static int partition(int[] arr, int left, int right) {
+		int pivot = arr[left];
+		int l = left + 1;
+		int r = right;
+		while (l <= r) {
+			if (arr[l] < pivot && arr[r] > pivot) {
+				int temp = arr[l];
+				arr[l] = arr[r];
+				arr[r] = temp;
+				l++;
+				r--;
+			}
+			if (arr[l] > pivot) {
+				l++;
+			}
+			if (arr[r] < pivot) {
+				r--;
+			}
+		}
+		int temp2 = arr[left];
+		arr[left] = arr[r];
+		arr[r] = temp2;
+		return r;
+	}
+
+	static int majorityElement(int[] arr, int size) {
+		if (arr.length == 1)
+			return -1;
+		int max_count = 0;
+		int max_element = 0;
+		for (int i = 0; i < size; i++) {
+			if (max_count == 0)
+				max_element = arr[i];
+			if (arr[i] == max_element) {
+				max_count++;
+			} else {
+				max_count--;
+			}
+		}
+		return max_element;
+	}
+
+	static void sort012(int[] arr, int n) {
+		// initialize start and end
+		int start = 0;
+		int mid = 0;
+		int end = n - 1;
+		while (mid < end) {
+			if (arr[mid] == 0) {
+				swap(arr, start, mid);
+				start++;
+				mid++;
+			} else if (arr[mid] == 1)
+				mid++;
+			else {
+				swap(arr, mid, end);
+				mid++;
+				end--;
+			}
+		}
+	}
+
+	static void swap(int[] arr, int i, int j) {
+		int temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
+	}
+
+	static void swapString(String[] arr, int i, int j) {
+		String temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
+	}
+
+	static int minJumps_by_recursion(int[] arr, int initial, int end) {
+		if (initial >= end)
+			return 0;
+		int min = Integer.MAX_VALUE;
+		int steps = arr[initial];
+		while (steps > 0) {
+			int local_min = 1 + minJumps_by_recursion(arr, initial + steps, end);
+			min = Math.min(min, local_min);
+			steps--;
+		}
+		return min;
+	}
+
+	static long maxSubarraySum(int[] arr, int n) {
+		int sum = 0;
+		int max = Integer.MIN_VALUE;
+		for (int i = 0; i < n; i++) {
+			sum += arr[i];
+			if (sum < 0) {
+				sum = 0;
+			}
+			max = Math.max(max, sum);
+		}
+		if (max == 0)
+			return -1;
+		return max;
+	}
+
+	static List<Integer> subarray_Sum(int[] arr, int n, int sum) {
+		List<Integer> ans = null;
+		if (arr.length == 1 && arr[0] == sum) {
+			ans = new ArrayList<>();
+			ans.add(0 + 1);
+			ans.add(0 + 1);
+			return ans;
+		}
+		int i = 0;
+		int j = 0;
+		int countsum = 0;
+		while (i < n && j < n) {
+			countsum += arr[j];
+			while (countsum > sum && i < j) {
+				countsum -= arr[i];
+				i++;
+			}
+			if (countsum == sum) {
+				System.out.println("i : " + i + " , j : " + j);
+				ans = new ArrayList<>();
+				ans.add(i + 1);
+				ans.add(j + 1);
+				return ans;
+			}
+			j++;
+		}
+		ans = new ArrayList<>();
+		ans.add(-1);
+		ans.add(-1);
+		return ans;
+	}
+
+	private void dummy() {
+//        PriorityQueue<pair> pq = new PriorityQueue<>(new customcomparator());
+//        pair p1 = new pair(4,2);
+//        pair p2 = new pair(1,5);
+//        pq.add(p1);
+//        pq.add(p2);
+//        System.out.println("ans : "+pq.peek());
+	}
+
+	static class pair {
+		int a;
+		int b;
+
+		@Override
+		public String toString() {
+			return "pair{" + "a=" + a + ", b=" + b + '}';
+		}
+
+		pair(int a, int b) {
+			this.a = a;
+			this.b = b;
+		}
+	}
+
+	private static void minOperation(int[] a, int n) {
+		int steps = 0;
+		PriorityQueue<Integer> pq = new PriorityQueue<>();
+		for (int i = 0; i < n; i++) {
+			if (!pq.isEmpty() && pq.peek() < a[i]) {
+				int k = a[i] - pq.peek();
+				steps += k;
+				pq.add(a[i]);
+				pq.poll();
+			}
+			pq.add(a[i]);
+		}
+		System.out.println("ans " + steps);
+	}
+
+	private static int stickerThief(int[] arr, int idx) {
+		// Base case
+		if (idx == 0)
+			return arr[idx];
+		if (idx < 0)
+			return 0;
+		int first = arr[idx] + stickerThief(arr, idx - 2);
+		int second = stickerThief(arr, idx - 1);
+		return Math.max(first, second);
+	}
+
+	private static int coinChange(int[] A, int n, int sum, int ind, int[][] dp) {
+		if (sum == 0)
+			return 0;
+		if (sum < 0)
+			return Integer.MAX_VALUE;
+		if (dp[ind][sum] != -1)
+			return dp[ind][sum];
+		int min = Integer.MAX_VALUE;
+		for (int i = ind; i < n; i++) {
+			int local_min = coinChange(A, n, sum - A[i], i, dp);
+			if (local_min != Integer.MAX_VALUE) {
+				min = Math.min(min, local_min + 1);
+			}
+		}
+		dp[ind][sum] = min;
+		return min;
+	}
+
+	private static void spaceString(String str, StringBuilder sb, int pos) {
+		if (pos == str.length()) {
+			System.out.println("=> " + sb.toString());
+			return;
+		}
+		sb.append(str.charAt(pos));
+		spaceString(str, sb, pos + 1);
+		sb.append("$");
+		spaceString(str, sb, pos + 1);
+		sb.deleteCharAt(sb.length() - 1);
+		sb.deleteCharAt(sb.length() - 1);
+	}
+}

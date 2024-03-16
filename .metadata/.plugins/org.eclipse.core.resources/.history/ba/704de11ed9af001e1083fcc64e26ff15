@@ -1,0 +1,13 @@
+package com.inn.strategypattern.impl;
+
+import com.inn.strategypattern.PaymentStrategy;
+
+public class PaypalStrategy implements PaymentStrategy {
+
+	@Override
+	public void pay(int payment) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

@@ -1,0 +1,23 @@
+package com.inn.pizzabillingown.pizzabilling.impl;
+
+import com.inn.pizzabillingown.basepizza.BasePizza;
+import com.inn.pizzabillingown.pizzabilling.BillCalculate;
+import com.inn.pizzabillingown.pizzasize.PizzaSize;
+
+public class NormalDayBillCalculate implements BillCalculate {
+
+	private BasePizza pizza;
+	
+	NormalDayBillCalculate(BasePizza pizza) {
+		this.pizza=pizza;
+	}
+	
+	@Override
+	public int calculate(PizzaSize pizzaSize) {
+		switch (pizzaSize.name()) {
+		case "SMALL":
+			return pizza.get
+		}
+	}
+
+}

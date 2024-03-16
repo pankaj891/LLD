@@ -1,0 +1,9 @@
+package com.inn.observablepattern;
+
+public class Decorator {
+
+	public static void main(String[] args) {
+		NewsAgency newsAgency = new NewsAgency();
+		
+	}
+}

@@ -1,0 +1,20 @@
+package com.inn.pizzabilling.pizza;
+
+import com.inn.pizzabilling.pizza.type.PizzaType;
+
+public abstract class Pizza {
+	
+	//price
+	int pizzaPrice;
+	//pizza type
+	PizzaType pizzaType;
+	
+	Pizza(int pizzaPrice, PizzaType pizzaType) {
+		this.pizzaPrice = pizzaPrice;
+		this.pizzaType = pizzaType;
+	}
+	
+	abstract int getPrice();
+	abstract int getPizzaPiece();
+	abstract PizzaType getPizzaType();
+}

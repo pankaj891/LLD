@@ -1,0 +1,7 @@
+package com.inn.pizzabillingown.pizzabilling.impl;
+
+import com.inn.pizzabillingown.pizzabilling.BillCalculate;
+
+public class NormalDayBillCalculate implements BillCalculate {
+
+}

@@ -1,0 +1,5 @@
+package com.inn.pizzabillingown.basepizza;
+
+public interface BasePizza {
+	public int getAmount(int price);
+}

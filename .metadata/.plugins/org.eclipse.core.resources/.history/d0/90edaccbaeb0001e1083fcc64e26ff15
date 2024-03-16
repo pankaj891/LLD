@@ -1,0 +1,11 @@
+package com.inn.observablepattern;
+
+public class NewsChannel implements Channels {
+
+	@Override
+	public void update(String news) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

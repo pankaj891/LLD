@@ -1,0 +1,5 @@
+package proxypattern.com.inn;
+
+public interface CommandRunner {
+
+}

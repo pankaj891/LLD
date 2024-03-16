@@ -1,0 +1,20 @@
+package com.inn.pizzabillingown.pizzabilling.impl;
+
+import com.inn.pizzabillingown.pizzabilling.BillCalculate;
+import com.inn.pizzabillingown.pizzasize.PizzaSize;
+
+public class NormalDayBillCalculate implements BillCalculate {
+
+	private BasePizza pizza;
+	
+	NormalDayBillCalculate(BasePizza pizza) {
+		
+	}
+	
+	@Override
+	public void calculate(PizzaSize pizzaSize) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

@@ -1,0 +1,31 @@
+package com.inn.pizzabillingown.basepizza.impl;
+
+import com.inn.pizzabillingown.basepizza.BasePizza;
+
+public class DeluxePizza implements BasePizza {
+
+	private int price;
+	private String pizzaName;
+	
+	@Override
+	public int getAmount() {
+		// TODO Auto-generated method stub
+		return this.price;
+	}
+	@Override
+	public StringBuilder getPizzaName() {
+		// TODO Auto-generated method stub
+		return new StringBuilder(this.pizzaName);
+	}
+	@Override
+	public void setAmout(int price) {
+		// TODO Auto-generated method stub
+		this.price=price;
+	}
+	@Override
+	public void setPizzaName(String pizzaName) {
+		// TODO Auto-generated method stub
+		this.pizzaName=pizzaName;
+	}	
+
+}

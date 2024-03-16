@@ -1,0 +1,11 @@
+package decoratorpattern;
+
+public abstract class PizzaDecorator implements Pizza {
+
+	@Override
+	public abstract void make();
+
+	@Override
+	public abstract void finish();
+
+}

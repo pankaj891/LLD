@@ -1,0 +1,10 @@
+package factorydesignpattern;
+
+public class Factory {
+
+	public static void main(String[] args) {
+		Computer server = ComputerFactory.getFactory("Server", "10", "20", "2");
+		System.out.println("=> "+server);
+	}
+
+}

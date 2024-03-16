@@ -1,0 +1,7 @@
+package com.inn.pizzabillingown.pizzabilling;
+
+import com.inn.pizzabillingown.pizzasize.PizzaSize;
+
+public interface BillCalculate {
+	public void calculate(PizzaSize pizzaSize);
+}

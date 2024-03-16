@@ -1,0 +1,618 @@
+package org.example;
+
+import java.lang.management.MonitorInfo;
+import java.util.*;
+
+// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
+// then press Enter. You can now see whitespace characters in your code.
+public class Main {
+	public static void main(String[] args) {
+		System.out.println("Hello and welcome!");
+		int[] arr = {100, 80, 60, 70, 60, 75, 85};
+		int[][] M = {{0,1,0},{0,0,0}, {0,1,0}};
+		int[] dp = new int[arr.length];
+		Arrays.fill(dp, -1);
+		calculateSpan(arr,arr.length);
+		
+	}
+	
+	private static void calculateSpan(int price[], int n) {
+		Stack<Main.pair> stack = new Stack<>();
+		int[] output = new int[price.length];
+		output[0]=1;
+		Main.pair firstPair = new Main.pair(price[0], 0);
+		stack.push(firstPair);
+		for (int i=1;i<price.length;i++) {
+			while (!stack.isEmpty() && stack.peek().a<price[i]) {
+				stack.pop();
+			}
+			output[i] = i-stack.peek().b;
+			stack.push(new Main.pair(price[i], i));
+		}
+	}
+	
+	private static void kthElement(int[] arr1,int[] arr2,int n,int m,int k) {
+		int low = 0;
+		int high = m-1;
+		while (low<=high) {
+			int mid = (low+high)/2;
+			int upperFirst = k-mid;
+			int lowerFirst = mid;
+			int upperSecond = (k-mid)+1;
+			int lowerSecond = mid+1;
+		}
+	}
+	
+	private static int maxIndexDiff(int arr[], int n) {
+		int[] rightMax = new int[n];
+		rightMax[n-1] = arr[n-1];
+		for (int i=n-2;i>=0;i--) {
+			rightMax[i] = Math.max(rightMax[i+1], arr[i]);
+		}
+		int MAX = Integer.MIN_VALUE;
+		for (int i=0;i<arr.length;i++) {
+			int j = searchMax(rightMax,0,rightMax.length,arr[i]);
+			MAX = Math.max(MAX, j-i);
+		}
+		return MAX;
+	}
+	
+	private static int searchMax(int[] arr,int low,int high,int item) {
+		int l = low;
+		int h = high-1;
+		int ans = -1;
+		while (l<=h) {
+			int mid = (l+h)/2;
+			if (arr[mid]>=item) {
+				ans = mid;
+				l = mid +1;
+			} else {
+				h = mid - 1;
+			}
+		}
+		return ans;
+	}
+	
+	private static void maxLen(int arr[], int n) {
+		Map<Integer,Integer> hash = new HashMap<>();
+		int sum = 0;
+		int ans = -1;
+		for (int i=0;i<n;i++) {
+			sum+=arr[i];
+			if (hash.containsKey(sum)) {
+				//System.out.println("i : "+i);
+				ans = i-hash.get(sum);
+			} else {
+				hash.put(sum, i+1);
+			}
+		}
+		System.out.println("ans : "+(ans+1));
+	} 
+	
+	private static void lenOfLongSubarr(int A[], int N, int K) {
+		Map<Integer,Integer> hash = new HashMap<>();
+		int sum = 0;
+		int i=0,j=0;
+		int len = -1;
+		while (i<=j && j<N) {
+			sum+=A[j];
+			while (sum > K) {
+				sum-=A[i];
+				i++;
+			}
+			if (sum==K) {
+				len = j-i;
+			}
+			j++;
+		}
+		System.out.println("ans : "+(len+1));
+	}
+	
+	private static int FindMaxSum(int arr[], int n,int[] dp) {
+		if (n<0)
+			return 0;
+		if (n==0)
+			return arr[0];
+		if (dp[n]!=-1)
+			return dp[n];
+		int second = arr[n] + FindMaxSum(arr,n-2,dp);
+		int first = 0 + FindMaxSum(arr,n-1,dp);
+		return dp[n]=Math.max(first, second);
+	}
+	
+	private static void celebrity(int M[][], int n) {
+		Stack<Integer> bucket = new Stack<>();
+		for (int i=0;i<n;i++)
+			bucket.push(i);
+		while (bucket.size()>1) {
+			int top_one = bucket.pop();
+			int top_two = bucket.pop();
+			if (M[top_one][top_two]==1) {
+				bucket.push(top_two);
+			}else {
+				bucket.push(top_one);
+			}
+		}
+		int possible = bucket.pop();
+		Boolean is_winner_exist = true;
+		for (int i=0;i<n;i++) {
+			if (M[possible][i]==1) {
+				is_winner_exist = false;
+				break;
+			}
+		}
+		if (is_winner_exist) 
+			System.out.println("ans : "+possible);
+		else
+			System.out.println("ans : -1");
+	}
+	
+	private static void rearrange(int[] arr,int n) {
+		int j=0,k=n-1,key=arr[n-1]+1;
+		for (int i=0;i<n;i++) {
+			if (i%2==0) {
+				arr[i] = (arr[k]%key)*key+arr[i];
+				k--;
+			} else {
+				arr[i] = (arr[j]%key)*key+arr[i];
+				j++;
+			}
+		}
+		for (int m : arr)
+			System.out.println((m/key)+", ");
+	}
+	
+	private static void findFirst(int arr[], int n, int x) {
+		int low = 0;
+		int high = n;
+		int ans = -1;
+		while (low<=high) {
+			int mid = (low+high)/2;
+			if (x<arr[mid])
+				high = mid - 1;
+			else if (x>arr[mid])
+				low = mid + 1;
+			else {
+				ans = mid;
+				high = mid - 1;
+			}
+		}
+		System.out.println("ans : "+ans);
+	}
+	
+	private static void findLast(int arr[], int n, int x) {
+		int low = 0;
+		int high = n;
+		int ans = -1;
+		while (low<=high) {
+			int mid = (low+high)/2;
+			if (x<arr[mid])
+				high = mid - 1;
+			else if (x>arr[mid])
+				low = mid + 1;
+			else {
+				ans = mid;
+				low = mid + 1;;
+			}
+		}
+		System.out.println("ans : "+ans);
+	}
+	
+	private static void stockBuySell(int arr[], int n) {
+		int max_of_all = Integer.MIN_VALUE;
+		int sum = 0;
+		for (int i =0;i<n-1;i++) {
+			if (arr[i]<arr[i+1]) {
+				sum +=(arr[i+1]-arr[i]);
+			}else {
+				sum = 0;
+			}
+			max_of_all = Math.max(max_of_all, sum);
+		}
+		System.out.println("ans : "+max_of_all);
+	}
+	
+ 	private static void max_of_subarrays(int arr[], int n, int k) {
+		Deque<Integer> deque = new ArrayDeque<>();
+		for (int i = 0,j=0;i<(n-k);j++) {
+			while (!deque.isEmpty() && deque.peekLast()<arr[j]) {
+				deque.pollLast();
+			}
+			deque.offerLast(arr[j]);
+			if ((j-i)==k-1) {
+				System.out.println("ans : "+deque.peekFirst());
+				if (deque.peekFirst()==arr[i])
+					deque.pollFirst();
+				i++;
+			}
+		}
+	}
+	
+	private static void findTwoElement(int arr[], int n) {
+		int xor = 0;
+		for (int i = 0;i<n;i++) {
+			xor = xor ^ arr[i];
+		}
+		for (int i = 1;i<=n;i++) {
+			xor = xor ^ i;
+		}
+		System.out.println("xor : "+xor);
+		int diff = 1;
+		for (int i=0;i<32;i++) {
+			if ((diff&xor)!=0) {
+				break;
+			}
+			diff = diff<<1;
+		}
+		System.out.println("diff : "+diff);
+	}
+	
+	private static void peakElement(int[] arr,int n) {
+		int low = 0;
+		int high = n - 1;
+		int ans = -1;
+		while (low <= high) {
+			int mid = (low+high)/2;
+			if (mid == 0 && arr[mid] > arr[mid + 1]) {
+				ans = mid;
+				break;
+			} else if (mid == n -1 && arr[mid] > arr[mid -1]) {
+				ans = mid;
+				break;
+			} else if (arr[mid-1]< arr[mid] && arr[mid]> arr[mid+1]) {
+				ans = mid;
+				break;
+			} else if (mid != n - 1 && arr[mid+1] > arr[mid]) {
+				low = mid + 1;
+			} else {
+				high = mid - 1;
+			}
+		}
+		System.out.println("ans : "+ans);
+	}
+	
+
+	private static void findPlatform(int arr[], int dep[], int n) {
+		int count = 0;
+		int max = Integer.MIN_VALUE;
+		for (int i = 0; i < arr.length; i++) {
+			count = 1;
+			for (int j = i + 1; j < dep.length; j++) {
+				if (arr[i] >= arr[j]
+                        && dep[j] >= arr[i]) 
+					count++;
+			}
+			max = Math.max(max, count);
+		}
+		System.out.println("ans : "+count);
+	}
+
+	private static void trappingWater(int[] arr, int n) {
+		int[] leftmin = new int[n];
+		int[] rightmax = new int[n];
+		int total = 0;
+		int i = 1;
+		leftmin[0] = arr[0];
+		while (i < n) {
+			leftmin[i] = Math.max(leftmin[i - 1], arr[i]);
+			i++;
+		}
+		i = n - 2;
+		rightmax[n - 1] = arr[n - 1];
+		while (i >= 0) {
+			rightmax[i] = Math.max(rightmax[i + 1], arr[i]);
+			i--;
+		}
+		for (int k : leftmin)
+			System.out.print(k + ",");
+		System.out.println();
+		for (int k : rightmax)
+			System.out.print(k + ",");
+		i = 0;
+		for (int element : arr) {
+			System.out.println(
+					"total : " + total + " , min : " + Math.min(leftmin[i], rightmax[i]) + " , element : " + element);
+			total += (Math.min(leftmin[i], rightmax[i]) - element);
+		}
+		System.out.println();
+		System.out.println("ans : " + total);
+	}
+
+	private static int inversionCount(int[] arr, int low, int high) {
+		int count = 0;
+		if (low < high) {
+			int mid = (high - low) / 2;
+			count += inversionCount(arr, low, mid);
+			count += inversionCount(arr, mid + 1, high);
+		}
+		return count;
+	}
+
+	@SuppressWarnings("unused")
+	private static int merge(int[] arr, int low, int mid, int high) {
+		int start = low;
+		int mid_end = mid + 1;
+		int count = 0;
+		// arrange element and find inversion
+		while (start <= mid && mid_end < high) {
+			if (arr[start] <= arr[mid_end]) {
+				start++;
+			} else {
+				swap(arr, start, mid_end);
+				count += (mid - start) + 1;
+				mid_end++;
+			}
+		}
+
+		// transfer remaining element
+		while (start) {
+		}
+
+		return count;
+	}
+
+	private static int minimizeHeight(int[] arr, int n, int k) {
+		Arrays.sort(arr);
+		int max_ = arr[n - 1];
+		int min_ = arr[0];
+		int res = max_ - min_;
+		for (int i = 1; i < n; i++) {
+			if (arr[i] - k < 0)
+				continue;
+			max_ = Math.max(arr[i - 1] + k, arr[n - 1] - k);
+			min_ = Math.min(arr[i] - k, arr[0] + k);
+			res = Math.min(res, max_ - min_);
+		}
+		return res;
+	}
+
+	private static int minimizeHeightBruteForce(int[] arr, int n, int start, int k) {
+		// base case
+		if (start > n) {
+			int MIN = Integer.MAX_VALUE;
+			int MAX = Integer.MIN_VALUE;
+			for (int val : arr) {
+				MIN = Math.min(MIN, val);
+				MAX = Math.max(MAX, val);
+			}
+			return MAX - MIN;
+		}
+		arr[start] += k;
+		int firstMin = minimizeHeightBruteForce(arr, n, start + 1, k);
+		arr[start] -= k;
+		int secondMin = 0;
+		if ((arr[start] - k) < 0)
+			secondMin = minimizeHeightBruteForce(arr, n, start + 1, k);
+		else {
+			arr[start] -= k;
+			secondMin = minimizeHeightBruteForce(arr, n, start + 1, k);
+			arr[start] += k;
+		}
+		// System.out.println("first ==> "+firstMin);
+		// System.out.println("second ==> "+secondMin);
+		return Math.min(firstMin, secondMin);
+	}
+
+	static int kthSmallest(int[] arr, int l, int r, int k) {
+		int point = -1;
+		if (l < r) {
+			point = partition(arr, l, r);
+			if (point == k - 1)
+				return arr[point];
+			else if (k - 1 < point)
+				return kthSmallest(arr, l, point - 1, k);
+			else
+				return kthSmallest(arr, point + 1, r, k);
+		}
+		return point;
+	}
+
+	private static int partition(int[] arr, int left, int right) {
+		int pivot = arr[left];
+		int l = left + 1;
+		int r = right;
+		while (l <= r) {
+			if (arr[l] < pivot && arr[r] > pivot) {
+				int temp = arr[l];
+				arr[l] = arr[r];
+				arr[r] = temp;
+				l++;
+				r--;
+			}
+			if (arr[l] > pivot) {
+				l++;
+			}
+			if (arr[r] < pivot) {
+				r--;
+			}
+		}
+		int temp2 = arr[left];
+		arr[left] = arr[r];
+		arr[r] = temp2;
+		return r;
+	}
+
+	static int majorityElement(int[] arr, int size) {
+		if (arr.length == 1)
+			return -1;
+		int max_count = 0;
+		int max_element = 0;
+		for (int i = 0; i < size; i++) {
+			if (max_count == 0)
+				max_element = arr[i];
+			if (arr[i] == max_element) {
+				max_count++;
+			} else {
+				max_count--;
+			}
+		}
+		return max_element;
+	}
+
+	static void sort012(int[] arr, int n) {
+		// initialize start and end
+		int start = 0;
+		int mid = 0;
+		int end = n - 1;
+		while (mid < end) {
+			if (arr[mid] == 0) {
+				swap(arr, start, mid);
+				start++;
+				mid++;
+			} else if (arr[mid] == 1)
+				mid++;
+			else {
+				swap(arr, mid, end);
+				mid++;
+				end--;
+			}
+		}
+	}
+
+	static void swap(int[] arr, int i, int j) {
+		int temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
+	}
+
+	static int minJumps_by_recursion(int[] arr, int initial, int end) {
+		if (initial >= end)
+			return 0;
+		int min = Integer.MAX_VALUE;
+		int steps = arr[initial];
+		while (steps > 0) {
+			int local_min = 1 + minJumps_by_recursion(arr, initial + steps, end);
+			min = Math.min(min, local_min);
+			steps--;
+		}
+		return min;
+	}
+
+	static long maxSubarraySum(int[] arr, int n) {
+		int sum = 0;
+		int max = Integer.MIN_VALUE;
+		for (int i = 0; i < n; i++) {
+			sum += arr[i];
+			if (sum < 0) {
+				sum = 0;
+			}
+			max = Math.max(max, sum);
+		}
+		if (max == 0)
+			return -1;
+		return max;
+	}
+
+	static List<Integer> subarray_Sum(int[] arr, int n, int sum) {
+		List<Integer> ans = null;
+		if (arr.length == 1 && arr[0] == sum) {
+			ans = new ArrayList<>();
+			ans.add(0 + 1);
+			ans.add(0 + 1);
+			return ans;
+		}
+		int i = 0;
+		int j = 0;
+		int countsum = 0;
+		while (i < n && j < n) {
+			countsum += arr[j];
+			while (countsum > sum && i < j) {
+				countsum -= arr[i];
+				i++;
+			}
+			if (countsum == sum) {
+				System.out.println("i : " + i + " , j : " + j);
+				ans = new ArrayList<>();
+				ans.add(i + 1);
+				ans.add(j + 1);
+				return ans;
+			}
+			j++;
+		}
+		ans = new ArrayList<>();
+		ans.add(-1);
+		ans.add(-1);
+		return ans;
+	}
+
+	private void dummy() {
+//        PriorityQueue<pair> pq = new PriorityQueue<>(new customcomparator());
+//        pair p1 = new pair(4,2);
+//        pair p2 = new pair(1,5);
+//        pq.add(p1);
+//        pq.add(p2);
+//        System.out.println("ans : "+pq.peek());
+	}
+
+	static class pair {
+		int a;
+		int b;
+
+		@Override
+		public String toString() {
+			return "pair{" + "a=" + a + ", b=" + b + '}';
+		}
+
+		pair(int a, int b) {
+			this.a = a;
+			this.b = b;
+		}
+	}	
+    
+	private static void minOperation(int[] a, int n) {
+		int steps = 0;
+		PriorityQueue<Integer> pq = new PriorityQueue<>();
+		for (int i = 0; i < n; i++) {
+			if (!pq.isEmpty() && pq.peek() < a[i]) {
+				int k = a[i] - pq.peek();
+				steps += k;
+				pq.add(a[i]);
+				pq.poll();
+			}
+			pq.add(a[i]);
+		}
+		System.out.println("ans " + steps);
+	}
+
+	private static int stickerThief(int[] arr, int idx) {
+		// Base case
+		if (idx == 0)
+			return arr[idx];
+		if (idx < 0)
+			return 0;
+		int first = arr[idx] + stickerThief(arr, idx - 2);
+		int second = stickerThief(arr, idx - 1);
+		return Math.max(first, second);
+	}
+
+	private static int coinChange(int[] A, int n, int sum, int ind, int[][] dp) {
+		if (sum == 0)
+			return 0;
+		if (sum < 0)
+			return Integer.MAX_VALUE;
+		if (dp[ind][sum] != -1)
+			return dp[ind][sum];
+		int min = Integer.MAX_VALUE;
+		for (int i = ind; i < n; i++) {
+			int local_min = coinChange(A, n, sum - A[i], i, dp);
+			if (local_min != Integer.MAX_VALUE) {
+				min = Math.min(min, local_min + 1);
+			}
+		}
+		dp[ind][sum] = min;
+		return min;
+	}
+
+	private static void spaceString(String str, StringBuilder sb, int pos) {
+		if (pos == str.length()) {
+			System.out.println("=> " + sb.toString());
+			return;
+		}
+		sb.append(str.charAt(pos));
+		spaceString(str, sb, pos + 1);
+		sb.append("$");
+		spaceString(str, sb, pos + 1);
+		sb.deleteCharAt(sb.length() - 1);
+		sb.deleteCharAt(sb.length() - 1);
+	}
+}
